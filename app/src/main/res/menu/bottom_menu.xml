@@ -5,11 +5,11 @@
     android:title="Home"
     android:icon="@drawable/icon_home"
     />
-    <item
-        android:id="@+id/mnProduct"
-        android:title="Product"
-        android:icon="@drawable/icon_sanpham"
-        />
+    <!--    <item-->
+    <!--        android:id="@+id/mnProduct"-->
+    <!--        android:title="Product"-->
+    <!--        android:icon="@drawable/icon_sanpham"-->
+    <!--        />-->
     <item
         android:id="@+id/mnCart"
         android:title="Cart"

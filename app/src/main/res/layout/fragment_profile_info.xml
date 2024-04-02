@@ -15,6 +15,7 @@
             android:layout_height="wrap_content">
 
             <ImageButton
+                android:id="@+id/btnVefrofile"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="start"
@@ -37,13 +38,29 @@
             android:src="@drawable/avatar1" />
 
         <TextView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFAB00"
-            android:gravity="center"
-            android:text="User name" />
+            android:text="Tên Đăng Nhập:"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvtendangnhaptt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên Đăng Nhập :"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên :"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvhovatentt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tên :"
@@ -53,18 +70,24 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ngày sinh :"
+            android:text="Số điện thoại :"
             android:textSize="20dp"
             android:textStyle="bold" />
-
         <TextView
+            android:id="@+id/tvsdttt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Số điện thoại :"
             android:textSize="20dp"
             android:textStyle="bold" />
-
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email :"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvemailtt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email :"
@@ -74,9 +97,27 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Đổi mật khẩu :"
+            android:text="Địa Chỉ :"
             android:textSize="20dp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvdiachitv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Địa Chỉ :"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnsuathongtintt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Sửa thông tin"
+            android:textSize="20sp">
+
+        </Button>
     </LinearLayout>
 
 </FrameLayout>

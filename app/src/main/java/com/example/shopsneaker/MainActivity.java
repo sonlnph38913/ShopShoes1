@@ -32,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int menuId = menuItem.getItemId();
                 if (menuId == R.id.mnHome) {
+
+                    //// dcm binh l
+
                     loadFragment(new HomeFragment(), false);
                 }
 //                else if (menuId == R.id.mnProduct) {

@@ -15,6 +15,7 @@
             android:layout_height="wrap_content">
 
             <ImageButton
+                android:id="@+id/btnVeHome"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="start"
@@ -37,6 +38,7 @@
             android:src="@drawable/avatar1" />
 
         <TextView
+            android:id="@+id/tvuser1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFAB00"
@@ -52,6 +54,7 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/btnlichsudonhang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -67,6 +70,7 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/btnthongtincanhan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -74,6 +78,7 @@
             android:text="Thông tin cá nhân" />
 
         <Button
+            android:id="@+id/btnDoiMatKhau"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -89,6 +94,7 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/btnthongtinlienhe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -96,6 +102,7 @@
             android:text="Thông tin liện hệ " />
 
         <Button
+            android:id="@+id/btnDangXuat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -13,7 +13,7 @@ public class Dbhelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String dbQuanLy = "CREATE TABLE QUANLY(maql text primary key,hoten text,matkhau text,loaitaikhoan text)";
         db.execSQL(dbQuanLy);
-        String dbKhachHang = "CREATE TABLE KHACHHANG(makh integer primary key autoincrement, hoten text,taikhoan text,matkhau text, sdt text, diachi text )";
+        String dbKhachHang = "CREATE TABLE KHACHHANG(makh integer primary key autoincrement, hoten text,taikhoan text,matkhau text, sdt text,email text, diachi text )";
         db.execSQL(dbKhachHang);
         String dbLoai = "CREATE TABLE LOAIGIAY(maloai integer primary key autoincrement,  tenloai text)";
         db.execSQL(dbLoai);

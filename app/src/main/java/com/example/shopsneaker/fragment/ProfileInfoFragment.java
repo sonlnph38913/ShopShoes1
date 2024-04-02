@@ -1,65 +1,85 @@
 package com.example.shopsneaker.fragment;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.shopsneaker.R;
+import com.example.shopsneaker.database.Dbhelper;
+import com.example.shopsneaker.model.khachhang;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileInfoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ProfileInfoFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ProfileInfoFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileInfoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileInfoFragment newInstance(String param1, String param2) {
-        ProfileInfoFragment fragment = new ProfileInfoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    TextView tvtendangnhaptt, tvhovatentt, tvemailtt, tvsdttt, tvdiachitt;
+    Button btnsuathongtt;
+    ImageButton btnveprofile;
+    private SQLiteDatabase mDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile_info, container, false);
+        btnveprofile = view.findViewById(R.id.btnVefrofile);
+        tvtendangnhaptt = view.findViewById(R.id.tvtendangnhaptt);
+        tvhovatentt = view.findViewById(R.id.tvhovatentt);
+        tvemailtt = view.findViewById(R.id.tvemailtt);
+        tvsdttt = view.findViewById(R.id.tvsdttt);
+        tvdiachitt = view.findViewById(R.id.tvdiachitv);
+        btnsuathongtt = view.findViewById(R.id.btnsuathongtintt);
+        //suathongtin
+        btnsuathongtt.setOnClickListener(v -> {
+            Suathongtinuser suathongtinuser = new Suathongtinuser();
+            replaceFrg(suathongtinuser);
+        });
+        //vefrofile
+        btnveprofile.setOnClickListener(v -> {
+            ProfileFragment profileFragment = new ProfileFragment();
+            replaceFrg(profileFragment);
+        });
+        //thông tin
+        Dbhelper dbHelper = new Dbhelper(getContext());
+        mDatabase = dbHelper.getReadableDatabase();
+        khachhang userInfo = getUserInfo();
+        tvtendangnhaptt.setText(userInfo.getTaikhoan());
+        tvhovatentt.setText(userInfo.getHoten());
+        tvemailtt.setText(userInfo.getEmail());
+        tvsdttt.setText(userInfo.getSdt());
+        tvdiachitt.setText(userInfo.getDiachi());
+
+
+        return view;
+    }
+
+    private khachhang getUserInfo() {
+        khachhang userInfo = new khachhang();
+        // Thực hiện truy vấn SELECT để lấy thông tin tài khoản từ cơ sở dữ liệu
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM KHACHHANG", null);
+        if (cursor.moveToFirst()) {
+            // Lấy thông tin tài khoản từ các cột tương ứng
+            userInfo.setMakh(cursor.getInt(cursor.getColumnIndex("makh")));
+            userInfo.setHoten(cursor.getString(cursor.getColumnIndex("hoten")));
+            userInfo.setTaikhoan(cursor.getString(cursor.getColumnIndex("taikhoan")));
+            userInfo.setMatkhau(cursor.getString(cursor.getColumnIndex("matkhau")));
+            userInfo.setSdt(cursor.getString(cursor.getColumnIndex("sdt")));
+            userInfo.setEmail(cursor.getString(cursor.getColumnIndex("email")));
+            userInfo.setDiachi(cursor.getString(cursor.getColumnIndex("diachi")));
+        }
+        cursor.close();
+        return userInfo;
+    }
+
+    public void replaceFrg(Fragment fragment) {
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.framelayout, fragment).commit();
     }
 }

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,7 +63,8 @@ public class HomeFragment extends Fragment {
         imgInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ProfileFragment profileFragment = new ProfileFragment();
+                replaceFrg(profileFragment);
             }
         });
         //chuyển giỏ hàng
@@ -92,5 +94,10 @@ public class HomeFragment extends Fragment {
     private void loadSearch(ArrayList<Giay> listg) {
         GiayAdapter adapter = new GiayAdapter(getContext(), listg, giayDao);
         rcvGiay.setAdapter(adapter);
+    }
+
+    public void replaceFrg(Fragment fragment) {
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.framelayout, fragment).commit();
     }
 }

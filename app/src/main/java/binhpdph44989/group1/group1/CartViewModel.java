@@ -23,13 +23,26 @@ public class CartViewModel extends ViewModel {
     }
 
     public void addToCart(Giay giay) {
-
         List<Giay> items = cartItems.getValue();
         if (items == null) {
             items = new ArrayList<>();
         }
-        items.add(giay);
-        cartItems.setValue(items);
 
+        boolean isExist = false;
+        for (Giay item : items) {
+            if (item.getMagiay() == giay.getMagiay()) { // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng chưa
+                isExist = true;
+                // Cập nhật số lượng của sản phẩm
+                item.setSoluong(item.getSoluong() + 1); // Tăng số lượng lên 1
+                break;
+            }
+        }
+
+        if (!isExist) {
+            giay.setSoluong(1); // Nếu sản phẩm chưa tồn tại trong giỏ hàng, số lượng mặc định là 1
+            items.add(giay);
+        }
+
+        cartItems.setValue(items);
     }
 }

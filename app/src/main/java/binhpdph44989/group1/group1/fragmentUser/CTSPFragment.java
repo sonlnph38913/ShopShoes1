@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 import binhpdph44989.group1.group1.CartViewModel;
 import binhpdph44989.group1.group1.MainActivityUser;
 import binhpdph44989.group1.group1.R;
+import binhpdph44989.group1.group1.adapterUser.GioHangAdapter;
 import binhpdph44989.group1.group1.database.DbHelper;
 import binhpdph44989.group1.group1.model.Giay;
 
@@ -29,6 +30,8 @@ public class CTSPFragment extends Fragment {
     private CartViewModel cartViewModel;
 
     public Giay giay;
+
+    public GioHangAdapter adapter;
 
     public  CTSPFragment(){
 
@@ -59,6 +62,7 @@ public class CTSPFragment extends Fragment {
             public void onClick(View v) {
 
                 if (cartViewModel != null){
+
                     cartViewModel.addToCart(giay);
                     Toast.makeText(getContext(), "Đã Thêm Sản Phẩm Vào Giỏ Hàng", Toast.LENGTH_SHORT).show();
                 }

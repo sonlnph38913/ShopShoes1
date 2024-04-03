@@ -1,6 +1,7 @@
 package binhpdph44989.group1.group1.adapterUser;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,7 +44,21 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
         holder.bind(giay,position);
         holder.cbPro.setChecked(giay.isSelected());
 
-        // Xử lý sự kiện khi người dùng thay đổi trạng thái của checkbox
+        holder.btnThemSl.setOnClickListener(view -> {
+            giay.setSoluong(giay.getSoluong() + 1); // Tăng số lượng lên 1
+            notifyDataSetChanged(); // Cập nhật lại RecyclerView
+            gioHangFragment.calculateTotalPrice(); // Tính lại tổng tiền
+        });
+        holder.btnGiamsl.setOnClickListener(view -> {
+            if (giay.getSoluong() > 1) { // Kiểm tra nếu số lượng lớn hơn 1
+                giay.setSoluong(giay.getSoluong() - 1); // Giảm số lượng đi 1
+                notifyDataSetChanged(); // Cập nhật lại RecyclerView
+                gioHangFragment.calculateTotalPrice(); // Tính lại tổng tiền
+            } else {
+                // Hiển thị thông báo cho người dùng rằng số lượng không thể nhỏ hơn 1
+                Toast.makeText(context, "Số lượng không thể nhỏ hơn 1", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }
@@ -64,9 +80,10 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtTenGh, txtGiaGh, txtSizeGh;
+        private TextView txtTenGh, txtGiaGh, txtSizeGh,txtSoLuong;
         ImageView imgGh;
         CheckBox cbPro;
+        ImageView btnThemSl,btnGiamsl,btnDel;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,12 +92,18 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
             txtSizeGh = itemView.findViewById(R.id.txtSizeGh);
             imgGh = itemView.findViewById(R.id.imgHinhAnhGh);
             cbPro = itemView.findViewById(R.id.cbPro);
+            txtSoLuong = itemView.findViewById(R.id.txtSoLuongGh);
+            btnGiamsl = itemView.findViewById(R.id.btnGiamSl);
+            btnThemSl = itemView.findViewById(R.id.btnTangSl);
+            btnDel = itemView.findViewById(R.id.btnDel);
+
         }
 
         public void bind(Giay giay,int position) {
             txtTenGh.setText(giay.getTengiay());
             txtGiaGh.setText(String.valueOf("Giá:" + giay.getGiaban() + "$"));
             txtSizeGh.setText(String.valueOf("Size:" + giay.getSize()));
+            txtSoLuong.setText(String.valueOf("SL: " + giay.getSoluong()));
             String imgName = giay.getHinhanh();
             int resId = ((Activity)context).getResources().getIdentifier(imgName,"drawable",((Activity)context).getPackageName());
             imgGh.setImageResource(resId);
@@ -88,13 +111,55 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
             cbPro.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 // Cập nhật trạng thái của sản phẩm
                 giaylist.get(position).setSelected(isChecked);
+               btnDel.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       showDeleteDialog(position);
 
-
+                   }
+               });
                 gioHangFragment.calculateTotalPrice();
+
             });
 
 
 
         }
     }
+
+    public Giay removeItem(int position) {
+        Giay removedItem = giaylist.get(position);
+        giaylist.remove(position);
+        notifyItemRemoved(position);
+        return removedItem;
+    }
+    private void showDeleteDialog(int position) {
+        // Tạo dialog hỏi người dùng có muốn xóa hay không
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Xác nhận xóa");
+        builder.setMessage("Bạn có chắc chắn muốn xóa sản phẩm này không?");
+        builder.setPositiveButton("Có", (dialog, which) -> {
+            // Nếu người dùng chọn "Có", thực hiện xóa sản phẩm và cập nhật giỏ hàng
+            removeItem(position);
+            gioHangFragment.calculateTotalPrice();
+        });
+        builder.setNegativeButton("Không", (dialog, which) -> {
+            // Nếu người dùng chọn "Không", đóng dialog
+            dialog.dismiss();
+        });
+        // Hiển thị dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+    public int countSelectedItems() {
+        int count = 0;
+        for (Giay giay : giaylist) {
+            if (giay.isSelected()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+
 }

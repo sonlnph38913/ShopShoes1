@@ -1,5 +1,7 @@
 package binhpdph44989.group1.group1.fragmentUser;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,8 +15,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +36,7 @@ public class GioHangFragment extends Fragment {
     GioHangAdapter adapter;
     TextView txtTongTien;
     CheckBox cbAll;
+    Button btnDatHang;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +44,7 @@ public class GioHangFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_gio_hang, container, false);
         recyclerView = view.findViewById(R.id.rcvGioHang);
         txtTongTien = view.findViewById(R.id.txtTongTien);
+        btnDatHang = view.findViewById(R.id.btnDatHang);
         cbAll = view.findViewById(R.id.cbAll);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new GioHangAdapter(new ArrayList<>(),getContext(),this);
@@ -53,6 +59,12 @@ public class GioHangFragment extends Fragment {
             // Cập nhật lại giao diện
             adapter.notifyDataSetChanged();
         });
+        btnDatHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                placeOrder();
+            }
+        });
 
 
         return view;
@@ -61,7 +73,7 @@ public class GioHangFragment extends Fragment {
         int totalPrice = 0;
         for (Giay giay : adapter.getGiayList()) {
             if (giay.isSelected()) {
-                totalPrice += giay.getGiaban();
+                totalPrice += giay.getGiaban() * giay.getSoluong();
             }
         }
         txtTongTien.setText("Tổng tiền: " + totalPrice + "$");
@@ -77,6 +89,28 @@ public class GioHangFragment extends Fragment {
             }
         });
     }
+    private void placeOrder() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Xác nhận đặt hàng");
+        builder.setMessage("Bạn có muốn mua các sản phẩm đã chọn không?");
+        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Thực hiện hàm đặt hàng
+//                performOrder();
+            }
+        });
+        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Đóng dialog
+                dialog.dismiss();
+            }
+        });
+        // Hiển thị dialog
+        builder.create().show();
+    }
+
 
 }
 

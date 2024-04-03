@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/mnHome"
+    android:title="Home"
+    android:icon="@drawable/icon_home"
+    />
+<!--    <item-->
+<!--        android:id="@+id/mnProduct"-->
+<!--        android:title="Product"-->
+<!--        android:icon="@drawable/icon_sanpham"-->
+<!--        />-->
+    <item
+        android:id="@+id/mnCart"
+        android:title="Cart"
+        android:icon="@drawable/icon_giohang"
+        />
+<!--    <item-->
+<!--        android:id="@+id/mnSupport"-->
+<!--        android:title="Support"-->
+<!--        android:icon="@drawable/icon_hotro"-->
+<!--        />-->
+    <item
+        android:id="@+id/mnOrder"
+        android:title="Order"
+        android:icon="@drawable/order"/>
+    <item
+        android:id="@+id/mnSetting"
+        android:title="Setting"
+        android:icon="@drawable/icon_setting"
+        />
+</menu>

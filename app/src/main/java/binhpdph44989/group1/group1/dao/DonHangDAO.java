@@ -23,7 +23,7 @@ public class DonHangDAO {
         if (cursor.getCount() != 0){
             cursor.moveToFirst();
             do {
-                list.add(new DonHang(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4)));
+                list.add(new DonHang());
             } while (cursor.moveToNext());
         }
         return list;

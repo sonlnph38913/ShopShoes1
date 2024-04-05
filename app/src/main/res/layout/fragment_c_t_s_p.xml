@@ -57,8 +57,17 @@
                 android:textStyle="italic"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
+
                 />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtSoluongSp"
+                android:layout_marginTop="10dp"
+                android:text="Số lượng"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:textSize="15dp"/>
             <TextView
 
                 android:layout_width="wrap_content"
@@ -92,7 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
-                android:text="Đặt Hàng Ngay"
+                android:text="Thêm Vào Yêu Thích"
                 android:background="@drawable/custom_button"/>
         </LinearLayout>
 

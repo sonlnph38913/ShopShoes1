@@ -76,6 +76,7 @@ public class CTSPFragment extends Fragment {
         TextView txtGia = view.findViewById(R.id.txtGiaBanCt);
         TextView txtSize = view.findViewById(R.id.txtSizeCt);
         ImageView imgGiayCt = view.findViewById(R.id.imgGiayCt);
+        TextView txtSoluongSp = view.findViewById(R.id.txtSoluongSp);
 
 // Lấy ID của ảnh từ tệp drawable
         int imageResourceId = getResources().getIdentifier(giay.getHinhanh(), "drawable", getContext().getPackageName());
@@ -92,6 +93,7 @@ public class CTSPFragment extends Fragment {
         txtName.setText(giay.getTengiay());
         txtGia.setText("Giá Bán:" + giay.getGiaban());
         txtSize.setText("Size:" + giay.getSize());
+        txtSoluongSp.setText("Số Lượng Kho: " + giay.getSoluongkho());
     }
     public void onAttach(Context context){
         super.onAttach(context);

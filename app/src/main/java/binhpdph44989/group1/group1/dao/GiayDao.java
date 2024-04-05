@@ -17,7 +17,7 @@ public class GiayDao {
     public ArrayList<Giay>getDSGiay(){
         ArrayList<Giay>list = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = dbhelper.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT g.magiay,g.tengiay,g.hinhanh,g.size,g.giaban,g.soluong,lo.tenloai FROM GIAY g,LOAIGIAY lo WHERE g.maloai = lo.maloai ",null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT g.magiay, g.tengiay, g.hinhanh, g.size, g.giaban, g.soluongkho, g.soluong, lo.tenloai FROM GIAY g, LOAIGIAY lo WHERE g.maloai = lo.maloai\n ",null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()){
             int id = cursor.getInt(0);
@@ -25,9 +25,10 @@ public class GiayDao {
             String imgName = cursor.getString(2);
             int size = cursor.getInt(3);
             int gia = cursor.getInt(4);
-            int soluong = cursor.getInt(5);
-            int maloai = cursor.getInt(6);
-            Giay g = new Giay(id,name,imgName,size,gia,soluong,maloai);
+            int soluongkho = cursor.getInt(5);
+            int soluong = cursor.getInt(6);
+            int maloai = cursor.getInt(7);
+            Giay g = new Giay(id,name,imgName,size,gia,soluongkho,soluong,maloai);
             list.add(g);
             cursor.moveToNext();
         }

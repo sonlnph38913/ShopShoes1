@@ -7,7 +7,7 @@ public class DonHang {
     private String ngayDat;
     private int tongTien;
 
-    public DonHang(int maDH, String hoTen, String tenGiay, String ngayDat, int tongTien) {
+    public DonHang() {
         this.maDH = maDH;
         this.hoTen = hoTen;
         this.tenGiay = tenGiay;
@@ -54,4 +54,31 @@ public class DonHang {
     public void setTongTien(int tongTien) {
         this.tongTien = tongTien;
     }
+
+//    public void increaseQuantity() {
+//        soLuong++;
+//    }
+//
+//    // Phương thức thiết lập sản phẩm
+//    public void setSanPham(Giay giay) {
+//        this.sanPham = giay;
+//    }
+//
+//    // Phương thức thiết lập số lượng sản phẩm
+//    public void setSoLuong(int soLuong) {
+//        this.soLuong = soLuong;
+//    }
+//
+//    // Phương thức lấy thông tin sản phẩm
+//    public Giay getSanPham() {
+//        return sanPham;
+//    }
+//
+//    // Phương thức lấy số lượng sản phẩm
+//    public int getSoLuong() {
+//        return soLuong;
+//    }
+
+//    public Giay getSanPham() {
+//    }
 }

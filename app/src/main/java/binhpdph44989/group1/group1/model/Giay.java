@@ -11,60 +11,20 @@ public class Giay implements Parcelable {
     private String hinhanh;
     private int size;
     private int giaban;
+    private int soluongkho;
     private  int soluong;
     private int maloai;
-
-
-
-
-
-    protected Giay(Parcel in) {
-        magiay = in.readInt();
-        tengiay = in.readString();
-        hinhanh = in.readString();
-        size = in.readInt();
-        giaban = in.readInt();
-        soluong = in.readInt();
-        maloai = in.readInt();
-
-    }
-
-    public static final Creator<Giay> CREATOR = new Creator<Giay>() {
-        @Override
-        public Giay createFromParcel(Parcel in) {
-            return new Giay(in);
-        }
-
-        @Override
-        public Giay[] newArray(int size) {
-            return new Giay[size];
-        }
-    };
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeInt(magiay);
-        dest.writeString(tengiay);
-        dest.writeString(hinhanh);
-        dest.writeInt(size);
-        dest.writeInt(giaban);
-        dest.writeInt(soluong);
-        dest.writeInt(maloai);
-    }
 
     public Giay() {
     }
 
-    public Giay(int magiay, String tengiay, String hinhanh, int size, int giaban, int soluong, int maloai) {
+    public Giay(int magiay, String tengiay, String hinhanh, int size, int giaban, int soluongkho, int soluong, int maloai) {
         this.magiay = magiay;
         this.tengiay = tengiay;
         this.hinhanh = hinhanh;
         this.size = size;
         this.giaban = giaban;
+        this.soluongkho = soluongkho;
         this.soluong = soluong;
         this.maloai = maloai;
     }
@@ -109,6 +69,14 @@ public class Giay implements Parcelable {
         this.giaban = giaban;
     }
 
+    public int getSoluongkho() {
+        return soluongkho;
+    }
+
+    public void setSoluongkho(int soluongkho) {
+        this.soluongkho = soluongkho;
+    }
+
     public int getSoluong() {
         return soluong;
     }
@@ -124,6 +92,49 @@ public class Giay implements Parcelable {
     public void setMaloai(int maloai) {
         this.maloai = maloai;
     }
+
+    protected Giay(Parcel in) {
+        magiay = in.readInt();
+        tengiay = in.readString();
+        hinhanh = in.readString();
+        size = in.readInt();
+        giaban = in.readInt();
+        soluongkho = in.readInt();
+        soluong = in.readInt();
+        maloai = in.readInt();
+
+
+    }
+
+    public static final Creator<Giay> CREATOR = new Creator<Giay>() {
+        @Override
+        public Giay createFromParcel(Parcel in) {
+            return new Giay(in);
+        }
+
+        @Override
+        public Giay[] newArray(int size) {
+            return new Giay[size];
+        }
+    };
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeInt(magiay);
+        dest.writeString(tengiay);
+        dest.writeString(hinhanh);
+        dest.writeInt(size);
+        dest.writeInt(giaban);
+        dest.writeInt(soluongkho);
+        dest.writeInt(soluong);
+        dest.writeInt(maloai);
+    }
+
+
 
     private boolean isSelected;
 

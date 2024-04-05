@@ -90,6 +90,30 @@ public class GioHangFragment extends Fragment {
         });
     }
     private void placeOrder() {
+        // Kiểm tra xem có sản phẩm nào được chọn không
+        boolean hasSelectedItem = false;
+        for (Giay giay : adapter.getGiayList()) {
+            if (giay.isSelected()) {
+                hasSelectedItem = true;
+                break;
+            }
+        }
+
+        // Nếu không có sản phẩm nào được chọn, hiển thị dialog cảnh báo
+        if (!hasSelectedItem) {
+            showSelectProductDialog();
+            return;
+        }
+        List<Giay> selectedItems = adapter.getSelectedItems();
+
+        // Tính tổng số lượng các sản phẩm đã chọn
+        int totalQuantity = 0;
+        for (Giay giay : selectedItems) {
+            totalQuantity += giay.getSoluong();
+        }
+
+
+        // Tiếp tục thực hiện đặt hàng
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Xác nhận đặt hàng");
         builder.setMessage("Bạn có muốn mua các sản phẩm đã chọn không?");
@@ -97,10 +121,41 @@ public class GioHangFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Thực hiện hàm đặt hàng
-//                performOrder();
+                ArrayList<Giay> selectedItems = new ArrayList<>();
+                for (Giay giay : adapter.getGiayList()) {
+                    if (giay.isSelected()) {
+                        selectedItems.add(giay);
+                    }
+                }
+
+                // Chuyển sang Fragment đơn hàng và đưa danh sách sản phẩm đã chọn vào Bundle
+                DonHangFragment donHangFragment = new DonHangFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("selectedItems", selectedItems);
+                donHangFragment.setArguments(bundle);
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container2, donHangFragment)
+                        .addToBackStack(null)
+                        .commit();
+                Toast.makeText(getContext(), "Đặt Hàng Thành Công", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Đóng dialog
+                dialog.dismiss();
+            }
+        });
+        // Hiển thị dialog
+        builder.create().show();
+    }
+
+    private void showSelectProductDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Thông báo");
+        builder.setMessage("Vui lòng chọn ít nhất một sản phẩm để đặt hàng.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Đóng dialog

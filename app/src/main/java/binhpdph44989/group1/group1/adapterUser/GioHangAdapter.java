@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import binhpdph44989.group1.group1.R;
 import binhpdph44989.group1.group1.fragmentUser.GioHangFragment;
@@ -45,9 +46,13 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
         holder.cbPro.setChecked(giay.isSelected());
 
         holder.btnThemSl.setOnClickListener(view -> {
-            giay.setSoluong(giay.getSoluong() + 1); // Tăng số lượng lên 1
-            notifyDataSetChanged(); // Cập nhật lại RecyclerView
-            gioHangFragment.calculateTotalPrice(); // Tính lại tổng tiền
+            if (giay.getSoluong() < giay.getSoluongkho()) {
+                giay.setSoluong(giay.getSoluong() + 1); // Tăng số lượng lên 1
+                notifyDataSetChanged(); // Cập nhật lại RecyclerView
+                gioHangFragment.calculateTotalPrice(); // Tính lại tổng tiền
+            } else {
+                Toast.makeText(context, "Số lượng vượt quá số lượng trong kho", Toast.LENGTH_SHORT).show();
+            }
         });
         holder.btnGiamsl.setOnClickListener(view -> {
             if (giay.getSoluong() > 1) { // Kiểm tra nếu số lượng lớn hơn 1
@@ -77,6 +82,16 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
 
     public ArrayList<Giay> getGiayList() {
         return giaylist;
+    }
+
+    public List<Giay> getSelectedItems() {
+        List<Giay> selectedItems = new ArrayList<>();
+        for (Giay giay : giaylist) {
+            if (giay.isSelected()) {
+                selectedItems.add(giay);
+            }
+        }
+        return selectedItems;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

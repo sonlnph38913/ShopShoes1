@@ -18,6 +18,7 @@ import java.util.List;
 
 
 import binhpdph44989.group1.group1.CartViewModel;
+import binhpdph44989.group1.group1.DonHangViewModel;
 import binhpdph44989.group1.group1.R;
 import binhpdph44989.group1.group1.adapterUser.DonHangAdapterUser;
 import binhpdph44989.group1.group1.model.DonHang;
@@ -25,6 +26,7 @@ import binhpdph44989.group1.group1.model.Giay;
 
 public class DonHangFragment extends Fragment {
     private CartViewModel cartViewModel;
+    private DonHangViewModel donHangViewModel;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,10 +38,20 @@ public class DonHangFragment extends Fragment {
        cartViewModel.getCartItems().observe(getViewLifecycleOwner(), new Observer<List<Giay>>() {
            @Override
            public void onChanged(List<Giay> giayList) {
-               DonHangAdapterUser adapterUser = new DonHangAdapterUser((ArrayList<Giay>) giayList);
-               rcv_donhang.setAdapter(adapterUser);
+               DonHangAdapterUser adapter = new DonHangAdapterUser((ArrayList<Giay>) giayList);
+               rcv_donhang.setAdapter(adapter);
            }
        });
+        donHangViewModel = new ViewModelProvider(requireActivity()).get(DonHangViewModel.class);
+//        donHangViewModel.getDonHangList().observe(getViewLifecycleOwner(), new Observer<List<DonHang>>() {
+//            @Override
+//            public void onChanged(List<DonHang> donHangList) {
+//                DonHangAdapterUser adapter = new DonHangAdapterUser((ArrayList<DonHang>)donHangList);
+//                rcv_donhang.setAdapter(adapter);
+//            }
+//        });
+
+
 
         return view;
     }

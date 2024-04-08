@@ -1,6 +1,5 @@
 package binhpdph44989.group1.group1.adapterUser;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import binhpdph44989.group1.group1.R;
 import binhpdph44989.group1.group1.model.DonHang;
@@ -18,16 +16,17 @@ import binhpdph44989.group1.group1.model.Giay;
 
 public class DonHangAdapterUser extends RecyclerView.Adapter<DonHangAdapterUser.DonHangViewHolder> {
        
-       private List<Giay>selectedItems;
+       private ArrayList<Giay>selectedItems = new ArrayList<>();
 
-    public DonHangAdapterUser(Context context, List<Giay> selectedItems) {
-       
-        this.selectedItems = selectedItems ;
+    public DonHangAdapterUser(ArrayList<Giay> giayList) {
+        this.selectedItems = giayList;
     }
+//       private ArrayList<DonHang>list = new ArrayList<>();
 
-    public DonHangAdapterUser(ArrayList<Giay> selectedItems) {
-        this.selectedItems = selectedItems;
-    }
+
+
+
+
 
     @NonNull
     @Override
@@ -38,15 +37,19 @@ public class DonHangAdapterUser extends RecyclerView.Adapter<DonHangAdapterUser.
 
     @Override
     public void onBindViewHolder(@NonNull DonHangViewHolder holder, int position) {
+//        DonHang donHang = list.get(position);
         Giay giay = selectedItems.get(position);
-
-        holder.ngaydatTextView.setText("Ngày Đặt Hàng " + giay.getTengiay());
+//        holder.madhTextView.setText("Mã Đơn Hàng: " + donHang.getMaDH());
+//        holder.ngaydatTextView.setText("Ngày Đặt Hàng: " + donHang.getNgayDat());
+//        holder.tenKhTextView.setText("Người Đặt: " + donHang.getHoTen());
+        holder.tenKhTextView.setText("Tên Sản Phẩm: " + giay.getTengiay());
+        holder.slSanPhamTextView.setText("Số Lượng: " + giay.getSoluong());
 
     }
 
     @Override
     public int getItemCount() {
-        return selectedItems.size();
+       return selectedItems.size();
     }
 
     static class DonHangViewHolder extends RecyclerView.ViewHolder {
@@ -58,11 +61,11 @@ public class DonHangAdapterUser extends RecyclerView.Adapter<DonHangAdapterUser.
 
         public DonHangViewHolder(@NonNull View itemView) {
             super(itemView);
-            madhTextView = itemView.findViewById(R.id.madh);
+//            madhTextView = itemView.findViewById(R.id.madh);
             tenKhTextView = itemView.findViewById(R.id.tenKh);
-            ngaydatTextView = itemView.findViewById(R.id.ngaydat);
+//            ngaydatTextView = itemView.findViewById(R.id.ngaydat);
             slSanPhamTextView = itemView.findViewById(R.id.SlSanPham);
-            tongTienTextView = itemView.findViewById(R.id.TongTienDh);
+//            tongTienTextView = itemView.findViewById(R.id.TongTienDh);
         }
 
         public void bind(DonHang donHang) {

@@ -134,9 +134,10 @@ public class GioHangFragment extends Fragment {
                 bundle.putParcelableArrayList("selectedItems", selectedItems);
                 donHangFragment.setArguments(bundle);
                 getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container2, donHangFragment)
+                        .replace(R.id.framelayout, donHangFragment)
                         .addToBackStack(null)
                         .commit();
+
                 Toast.makeText(getContext(), "Đặt Hàng Thành Công", Toast.LENGTH_SHORT).show();
             }
         });

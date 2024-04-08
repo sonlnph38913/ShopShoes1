@@ -69,7 +69,6 @@ public class MainActivityUser extends AppCompatActivity {
             fragmentTransaction.replace(R.id.framelayout, fragment);
         }
 
-
         fragmentTransaction.commit();
     }
     public CartViewModel getCartViewModel() {

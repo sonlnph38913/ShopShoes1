@@ -1,8 +1,5 @@
 package binhpdph44989.group1.group1;
 
-import android.content.Context;
-import android.widget.Toast;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -50,7 +47,33 @@ public class CartViewModel extends ViewModel {
         cartItems.setValue(items);
     }
 
+    public void removeItemFromCart(Giay giay) {
+        if (giay == null) {
+            return;
+        }
+
+        List<Giay> items = cartItems.getValue();
+        if (items == null || items.isEmpty()) {
+            return;
+        }
+
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getMagiay() == giay.getMagiay()) {
+                // Giảm số lượng hoặc xóa sản phẩm khỏi giỏ hàng nếu số lượng là 1
+                if (items.get(i).getSoluong() > 1) {
+                    items.get(i).setSoluong(items.get(i).getSoluong() - 1);
+                } else {
+                    items.remove(i);
+                }
+                break;
+            }
+        }
+
+        cartItems.setValue(items);
+    }
+
     public void clearCart() {
         cartItems.setValue(new ArrayList<>());
     }
 }
+

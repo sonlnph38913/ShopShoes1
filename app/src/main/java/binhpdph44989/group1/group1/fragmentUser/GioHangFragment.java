@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import binhpdph44989.group1.group1.CartViewModel;
-import binhpdph44989.group1.group1.MainActivityUser;
 import binhpdph44989.group1.group1.R;
 import binhpdph44989.group1.group1.adapterUser.GioHangAdapter;
 import binhpdph44989.group1.group1.model.Giay;
@@ -137,6 +136,7 @@ public class GioHangFragment extends Fragment {
                         .replace(R.id.framelayout, donHangFragment)
                         .addToBackStack(null)
                         .commit();
+
 
                 Toast.makeText(getContext(), "Đặt Hàng Thành Công", Toast.LENGTH_SHORT).show();
             }

@@ -62,7 +62,7 @@ public class DonHangAdapterUser extends RecyclerView.Adapter<DonHangAdapterUser.
         public DonHangViewHolder(@NonNull View itemView) {
             super(itemView);
 //            madhTextView = itemView.findViewById(R.id.madh);
-            tenKhTextView = itemView.findViewById(R.id.tenKh);
+            tenKhTextView = itemView.findViewById(R.id.tenKh); 
 //            ngaydatTextView = itemView.findViewById(R.id.ngaydat);
             slSanPhamTextView = itemView.findViewById(R.id.SlSanPham);
 //            tongTienTextView = itemView.findViewById(R.id.TongTienDh);

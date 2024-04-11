@@ -26,6 +26,7 @@ public class MainActivityUser extends AppCompatActivity {
     private CartViewModel cartViewModel;
     private BottomNavigationView bottomNavigationView;
     private FrameLayout frameLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

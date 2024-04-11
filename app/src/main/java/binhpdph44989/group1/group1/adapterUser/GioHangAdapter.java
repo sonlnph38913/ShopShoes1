@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import binhpdph44989.group1.group1.CartViewModel;
 import binhpdph44989.group1.group1.R;
 import binhpdph44989.group1.group1.fragmentUser.GioHangFragment;
 import binhpdph44989.group1.group1.model.Giay;
@@ -25,6 +26,7 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
     private ArrayList<Giay> giaylist;
     private Context context;
     private GioHangFragment gioHangFragment;
+    private CartViewModel cartViewModel;
 
     public GioHangAdapter(ArrayList<Giay> giaylist, Context context, GioHangFragment gioHangFragment) {
         this.giaylist = giaylist;
@@ -61,15 +63,10 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
                 gioHangFragment.calculateTotalPrice(); // Tính lại tổng tiền
             } else {
                 // Hiển thị thông báo cho người dùng rằng số lượng không thể nhỏ hơn 1
-                Toast.makeText(context, "Số lượng không thể nhỏ hơn 1", Toast.LENGTH_SHORT).show();
+                showDeleteDialog(position);
             }
         });
-
-
     }
-
-
-
     @Override
     public int getItemCount() {
         return giaylist.size();
@@ -79,7 +76,6 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
         this.giaylist = giaylist;
         notifyDataSetChanged();
     }
-
     public ArrayList<Giay> getGiayList() {
         return giaylist;
     }
@@ -98,7 +94,7 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
         private TextView txtTenGh, txtGiaGh, txtSizeGh,txtSoLuong;
         ImageView imgGh;
         CheckBox cbPro;
-        ImageView btnThemSl,btnGiamsl,btnDel;
+        ImageView btnThemSl,btnGiamsl;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,7 +106,7 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
             txtSoLuong = itemView.findViewById(R.id.txtSoLuongGh);
             btnGiamsl = itemView.findViewById(R.id.btnGiamSl);
             btnThemSl = itemView.findViewById(R.id.btnTangSl);
-            btnDel = itemView.findViewById(R.id.btnDel);
+
 
         }
 
@@ -126,19 +122,9 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
             cbPro.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 // Cập nhật trạng thái của sản phẩm
                 giaylist.get(position).setSelected(isChecked);
-               btnDel.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                   public void onClick(View v) {
-                       showDeleteDialog(position);
-
-                   }
-               });
                 gioHangFragment.calculateTotalPrice();
 
             });
-
-
-
         }
     }
 

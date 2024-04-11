@@ -11,12 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import binhpdph44989.group1.group1.R;
 import binhpdph44989.group1.group1.dao.GiayDao;
@@ -70,6 +70,10 @@ public class GiayAdapterUser extends RecyclerView.Adapter<GiayAdapterUser.ViewHo
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void setGiay(List<Giay> products) {
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

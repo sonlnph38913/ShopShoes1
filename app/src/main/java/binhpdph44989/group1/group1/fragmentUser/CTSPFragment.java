@@ -18,6 +18,9 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import binhpdph44989.group1.group1.CartViewModel;
 import binhpdph44989.group1.group1.MainActivityUser;
 import binhpdph44989.group1.group1.R;
@@ -32,6 +35,7 @@ public class CTSPFragment extends Fragment {
     public Giay giay;
 
     public GioHangAdapter adapter;
+    ArrayList<Giay> selectedItems = new ArrayList<>();
 
     public  CTSPFragment(){
 
@@ -64,6 +68,7 @@ public class CTSPFragment extends Fragment {
                 if (cartViewModel != null){
 
                     cartViewModel.addToCart(giay);
+//                    cartViewModel.updateStock(selectedItems);
                     Toast.makeText(getContext(), "Đã Thêm Sản Phẩm Vào Giỏ Hàng", Toast.LENGTH_SHORT).show();
                 }
 
@@ -94,6 +99,7 @@ public class CTSPFragment extends Fragment {
         txtGia.setText("Giá Bán:" + giay.getGiaban());
         txtSize.setText("Size:" + giay.getSize());
         txtSoluongSp.setText("Số Lượng Kho: " + giay.getSoluongkho());
+//        cartViewModel.updateStock(selectedItems);
     }
     public void onAttach(Context context){
         super.onAttach(context);

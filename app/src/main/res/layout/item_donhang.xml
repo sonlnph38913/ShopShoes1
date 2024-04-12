@@ -19,12 +19,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="#f6f6f6">
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:id="@+id/madh"-->
-<!--                android:text="Mã Đơn Hàng"-->
-<!--                android:textSize="18dp"/>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/madh"
+                android:text="Mã Đơn Hàng"
+                android:textSize="18dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -32,13 +32,21 @@
                 android:text="Tên Người Đặt"
                 android:textSize="18dp"
                 android:layout_marginTop="10dp"/>
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:id="@+id/ngaydat"-->
-<!--                android:text="Ngày Đặt"-->
-<!--                android:textSize="18dp"-->
-<!--                android:layout_marginTop="10dp"/>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ngaydat"
+                android:text="Ngày Đặt"
+                android:textSize="18dp"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tenSP"
+                android:text="Tên SP"
+                android:textSize="18dp"
+                android:layout_marginTop="10dp"/>
+
 
 
             <TextView
@@ -48,13 +56,13 @@
                 android:text="Số Sản Phẩm"
                 android:textSize="18dp"
                 android:layout_marginTop="10dp"/>
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:id="@+id/TongTienDh"-->
-<!--                android:text="Thành Tiền:"-->
-<!--                android:textSize="18dp"-->
-<!--                android:layout_marginTop="10dp"/>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/TongTienDh"
+                android:text="Thành Tiền:"
+                android:textSize="18dp"
+                android:layout_marginTop="10dp"/>
 
 
         </LinearLayout>

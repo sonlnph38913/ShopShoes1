@@ -28,4 +28,7 @@ public class DonHangDAO {
         }
         return list;
     }
+
+    public void insert(DonHang donHang) {
+    }
 }

@@ -7,11 +7,25 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import binhpdph44989.group1.group1.model.DonHang;
 import binhpdph44989.group1.group1.model.Giay;
 
 public class CartViewModel extends ViewModel {
-    private MutableLiveData<List<Giay>> cartItems = new MutableLiveData<>();
+    private MutableLiveData<String> hoTen = new MutableLiveData<>();
 
+    // Phương thức để cập nhật họ tên
+    public void setHoTen(String ten) {
+        hoTen.setValue(ten);
+    }
+
+    public LiveData<String> getHoTen() {
+        return hoTen;
+    }
+    private MutableLiveData<List<Giay>> cartItems = new MutableLiveData<>();
+    ProductRepository productRepository;
+    public CartViewModel(){
+        productRepository = new ProductRepository();
+    }
     public LiveData<List<Giay>> getCartItems() {
         if (cartItems.getValue() == null) {
             cartItems.setValue(new ArrayList<>());
@@ -75,5 +89,28 @@ public class CartViewModel extends ViewModel {
     public void clearCart() {
         cartItems.setValue(new ArrayList<>());
     }
+    public void placeOrder(List<Giay> selectedItems, String name, String phone, String address) {
+        // Tạo đơn hàng mới
+        DonHang newOrder = new DonHang();
+        newOrder.setHoTen(name);
+        newOrder.setSoDienThoai(phone);
+        newOrder.setDiaChi(address);
+        newOrder.setDanhSachSanPham(selectedItems);
+
+        // Lưu đơn hàng vào cơ sở dữ liệu
+        productRepository.insertGiay(newOrder);
+
+        // Xóa các sản phẩm đã chọn từ giỏ hàng
+        removeFromCart(selectedItems);
+    }
+
+    private void removeFromCart(List<Giay> selectedItems) {
+        List<Giay> currentItems = cartItems.getValue();
+        if (currentItems != null) {
+            currentItems.removeAll(selectedItems);
+            cartItems.setValue(currentItems);
+        }
+    }
+
 }
 

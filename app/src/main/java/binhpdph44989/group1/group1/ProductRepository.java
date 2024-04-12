@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import binhpdph44989.group1.group1.model.DonHang;
+
 public class ProductRepository {
     private SQLiteDatabase database;
 
@@ -36,5 +38,8 @@ public class ProductRepository {
     public Cursor getProductsByCategory(int maLoai) {
         String query = "SELECT * FROM GIAY WHERE maloai = ?";
         return database.rawQuery(query, new String[]{String.valueOf(maLoai)});
+    }
+
+    public void insertGiay(DonHang newOrder) {
     }
 }

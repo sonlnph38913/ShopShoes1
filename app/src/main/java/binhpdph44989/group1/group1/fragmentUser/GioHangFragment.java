@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import java.util.List;
 import binhpdph44989.group1.group1.CartViewModel;
 import binhpdph44989.group1.group1.R;
 import binhpdph44989.group1.group1.adapterUser.GioHangAdapter;
+import binhpdph44989.group1.group1.model.DonHang;
 import binhpdph44989.group1.group1.model.Giay;
 
 
@@ -36,6 +38,7 @@ public class GioHangFragment extends Fragment {
     TextView txtTongTien;
     CheckBox cbAll;
     Button btnDatHang;
+    private AlertDialog alertDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -119,26 +122,8 @@ public class GioHangFragment extends Fragment {
         builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Thực hiện hàm đặt hàng
-                ArrayList<Giay> selectedItems = new ArrayList<>();
-                for (Giay giay : adapter.getGiayList()) {
-                    if (giay.isSelected()) {
-                        selectedItems.add(giay);
-                    }
-                }
 
-                // Chuyển sang Fragment đơn hàng và đưa danh sách sản phẩm đã chọn vào Bundle
-                DonHangFragment donHangFragment = new DonHangFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("selectedItems", selectedItems);
-                donHangFragment.setArguments(bundle);
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.framelayout, donHangFragment)
-                        .addToBackStack(null)
-                        .commit();
-
-
-                Toast.makeText(getContext(), "Đặt Hàng Thành Công", Toast.LENGTH_SHORT).show();
+                ShowDialogOrder();
             }
         });
         builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -165,6 +150,67 @@ public class GioHangFragment extends Fragment {
         });
         // Hiển thị dialog
         builder.create().show();
+    }
+    private void ShowDialogOrder(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_order, null);
+        builder.setView(dialogView);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        EditText edtFullname = dialogView.findViewById(R.id.edtFullName);
+        EditText edtPhone = dialogView.findViewById(R.id.edtPhone);
+        EditText edtAddress = dialogView.findViewById(R.id.edtAddress);
+        Button btnOrder = dialogView.findViewById(R.id.btnOrder);
+        Button btnCancel = dialogView.findViewById(R.id.btnCancel);
+
+        btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            String name = edtFullname.getText().toString();
+            String phone = edtPhone.getText().toString();
+            String address = edtAddress.getText().toString();
+                if (!name.isEmpty()) {
+                    // Tạo đơn hàng mới với thông tin người đặt
+                  cartViewModel.setHoTen(name);
+                   Order();
+                } else {
+                    // Nếu họ tên không hợp lệ, hiển thị thông báo
+                    Toast.makeText(getContext(), "Vui lòng nhập họ tên", Toast.LENGTH_SHORT).show();
+                }
+
+            alertDialog.dismiss();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            alertDialog.dismiss();
+            }
+
+        });
+
+
+
+    }
+    private void Order(){
+//         Thực hiện hàm đặt hàng
+                ArrayList<Giay> selectedItems = new ArrayList<>();
+                for (Giay giay : adapter.getGiayList()) {
+                    if (giay.isSelected()) {
+                        selectedItems.add(giay);
+                    }
+                }
+                // Chuyển sang Fragment đơn hàng và đưa danh sách sản phẩm đã chọn vào Bundle
+                DonHangFragment donHangFragment = new DonHangFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("selectedItems", selectedItems);
+                donHangFragment.setArguments(bundle);
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.framelayout, donHangFragment)
+                        .addToBackStack(null)
+                        .commit();
+                Toast.makeText(getContext(), "Đặt Hàng Thành Công", Toast.LENGTH_SHORT).show();
     }
 
 

@@ -22,11 +22,13 @@ import binhpdph44989.group1.group1.DonHangViewModel;
 import binhpdph44989.group1.group1.R;
 import binhpdph44989.group1.group1.adapterUser.DonHangAdapterUser;
 import binhpdph44989.group1.group1.model.DonHang;
+import binhpdph44989.group1.group1.model.DonHangItems;
 import binhpdph44989.group1.group1.model.Giay;
 
 public class DonHangFragment extends Fragment {
     private CartViewModel cartViewModel;
-    private DonHangViewModel donHangViewModel;
+    private DonHangAdapterUser adapter;
+    private List<DonHangItems> donHangItemList = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,26 +36,41 @@ public class DonHangFragment extends Fragment {
         RecyclerView rcv_donhang = view.findViewById(R.id.rcvDonHang);
         rcv_donhang.setLayoutManager(new LinearLayoutManager(getContext()));
 
-       cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
-       cartViewModel.getCartItems().observe(getViewLifecycleOwner(), new Observer<List<Giay>>() {
-           @Override
-           public void onChanged(List<Giay> giayList) {
-               DonHangAdapterUser adapter = new DonHangAdapterUser((ArrayList<Giay>) giayList);
-               rcv_donhang.setAdapter(adapter);
-           }
-       });
-        donHangViewModel = new ViewModelProvider(requireActivity()).get(DonHangViewModel.class);
-//        donHangViewModel.getDonHangList().observe(getViewLifecycleOwner(), new Observer<List<DonHang>>() {
-//            @Override
-//            public void onChanged(List<DonHang> donHangList) {
-//                DonHangAdapterUser adapter = new DonHangAdapterUser((ArrayList<DonHang>)donHangList);
-//                rcv_donhang.setAdapter(adapter);
-//            }
-//        });
+        rcv_donhang.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new DonHangAdapterUser(donHangItemList);
+        rcv_donhang.setAdapter(adapter);
 
 
 
         return view;
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
+        cartViewModel.getCartItems().observe(getViewLifecycleOwner(), new Observer<List<Giay>>() {
+            @Override
+            public void onChanged(List<Giay> giayList) {
+                // Clear danh sách DonHangItem trước khi thêm mới
+                donHangItemList.clear();
+                // Tạo các DonHangItem mới từ danh sách Giay
+                for (Giay giay : giayList) {
+                    DonHang donHang = new DonHang(); // Thay thế bằng cách lấy dữ liệu từ ViewModel hoặc database của bạn
+                    DonHangItems donHangItem = new DonHangItems(giay, donHang);
+                    donHangItemList.add(donHangItem);
+                }
+                // Cập nhật RecyclerView
+                adapter.notifyDataSetChanged();
+            }
+        });
+        cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
+        cartViewModel.getHoTen().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String hoTen) {
+                // Cập nhật RecyclerView trong Fragment đơn hàng khi có thay đổi về họ tên
+                adapter.setHoTen(hoTen);
+            }
+        });
     }
 
 

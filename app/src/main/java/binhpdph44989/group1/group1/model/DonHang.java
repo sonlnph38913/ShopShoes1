@@ -3,7 +3,6 @@ package binhpdph44989.group1.group1.model;
 import android.os.Build;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.List;
 
 public class DonHang {
@@ -22,8 +21,8 @@ public class DonHang {
             }
         }
 
-        public int getMaDH() {
-            return maDH;
+        public String getMaDH() {
+            return String.valueOf(maDH);
         }
 
         public void setMaDH(int maDH) {

@@ -37,7 +37,7 @@ public class DonHangFragment extends Fragment {
         rcv_donhang.setLayoutManager(new LinearLayoutManager(getContext()));
 
         rcv_donhang.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new DonHangAdapterUser(donHangItemList);
+        adapter = new DonHangAdapterUser(donHangItemList,getContext());
         rcv_donhang.setAdapter(adapter);
 
 
@@ -52,7 +52,7 @@ public class DonHangFragment extends Fragment {
             @Override
             public void onChanged(List<Giay> giayList) {
                 // Clear danh sách DonHangItem trước khi thêm mới
-                donHangItemList.clear();
+//                donHangItemList.clear();
                 // Tạo các DonHangItem mới từ danh sách Giay
                 for (Giay giay : giayList) {
                     DonHang donHang = new DonHang(); // Thay thế bằng cách lấy dữ liệu từ ViewModel hoặc database của bạn

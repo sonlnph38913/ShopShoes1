@@ -1,5 +1,6 @@
 package binhpdph44989.group1.group1.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 
 import binhpdph44989.group1.group1.database.DbHelper;
 import binhpdph44989.group1.group1.model.DonHang;
+import binhpdph44989.group1.group1.model.Giay;
 
 public class DonHangDAO {
     DbHelper dbHelper;
@@ -30,5 +32,15 @@ public class DonHangDAO {
     }
 
     public void insert(DonHang donHang) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("hoTen", donHang.getHoTen());
+        values.put("diaChi", donHang.getDiaChi());
+        // Thêm các giá trị khác cần thiết nếu có
+
+        // Chèn dữ liệu vào bảng đơn hàng
+        db.insert("DONHANG", null, values);
+        // Đóng kết nối cơ sở dữ liệu
+        db.close();
     }
 }

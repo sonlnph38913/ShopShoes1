@@ -21,6 +21,7 @@ import binhpdph44989.group1.group1.fragmentUser.DonHangFragment;
 import binhpdph44989.group1.group1.fragmentUser.GioHangFragment;
 import binhpdph44989.group1.group1.fragmentUser.HomeFragmentUser;
 import binhpdph44989.group1.group1.fragmentUser.SettingFragment;
+import binhpdph44989.group1.group1.fragmentUser.SupportFragment;
 
 public class MainActivityUser extends AppCompatActivity {
     private CartViewModel cartViewModel;
@@ -50,7 +51,7 @@ public class MainActivityUser extends AppCompatActivity {
                 } else if (menuId == R.id.mnOrder) {
                     loadFragment(new DonHangFragment(), false);
                 } else if (menuId == R.id.mnSetting) {
-                    loadFragment(new SettingFragment(), false);
+                    loadFragment(new SupportFragment(), false);
                 }
 
                 return true;

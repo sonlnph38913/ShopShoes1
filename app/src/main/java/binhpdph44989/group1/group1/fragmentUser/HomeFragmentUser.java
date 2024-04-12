@@ -115,7 +115,7 @@ public class HomeFragmentUser extends Fragment {
     }
     //data search
     private void loadSearch(ArrayList<Giay>listg){
-        GiayAdapterUser adapter = new GiayAdapterUser(getContext(), list, giayDao);
+        GiayAdapterUser adapter = new GiayAdapterUser(getContext(), listg, giayDao);
         rcvGiay.setAdapter(adapter);
     }
     private void loadFragment(Fragment fragment, boolean addToBackStack) {

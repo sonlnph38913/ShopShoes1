@@ -5,10 +5,107 @@
     android:layout_height="match_parent"
     tools:context=".fragmentUser.SupportFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Thông Tin Liên Hệ"
+           android:textStyle="bold"
+           android:textSize="30dp"
+           android:layout_gravity="center"
+           android:textColor="#ff00"
+           android:layout_marginTop="10dp"/>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginLeft="30dp"
+           android:layout_marginTop="50dp">
+           <ImageView
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:src="@drawable/search"
+
+               />
+           <TextView
+               android:id="@+id/txtGoogle"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Google"
+               android:textSize="26dp"
+               android:layout_marginLeft="100dp"
+               android:layout_marginTop="5dp"/>
+
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginLeft="30dp"
+           android:layout_marginTop="50dp">
+           <ImageView
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:src="@drawable/facebook"
+
+               />
+           <TextView
+               android:id="@+id/txtFacebook"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Facebook"
+               android:textSize="26dp"
+               android:layout_marginLeft="100dp"
+               android:layout_marginTop="5dp"/>
+
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginLeft="30dp"
+           android:layout_marginTop="50dp">
+           <ImageView
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:src="@drawable/youtube"
+
+               />
+           <TextView
+               android:id="@+id/txtYoutube"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="YouTube"
+               android:textSize="26dp"
+               android:layout_marginLeft="100dp"
+               android:layout_marginTop="5dp"/>
+
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginLeft="30dp"
+           android:layout_marginTop="50dp">
+           <ImageView
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:src="@drawable/instagram"
+
+               />
+           <TextView
+               android:id="@+id/txtInstagram"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Instagram"
+               android:textSize="26dp"
+               android:layout_marginLeft="100dp"
+               android:layout_marginTop="5dp"/>
+
+       </LinearLayout>
+   </LinearLayout>
 
 </FrameLayout>

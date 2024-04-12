@@ -12,6 +12,8 @@ import binhpdph44989.group1.group1.model.Giay;
 
 public class CartViewModel extends ViewModel {
     private MutableLiveData<String> hoTen = new MutableLiveData<>();
+    private MutableLiveData<String> phone = new MutableLiveData<>();
+    private MutableLiveData<String> address= new MutableLiveData<>();
 
     // Phương thức để cập nhật họ tên
     public void setHoTen(String ten) {
@@ -20,6 +22,21 @@ public class CartViewModel extends ViewModel {
 
     public LiveData<String> getHoTen() {
         return hoTen;
+    }
+    public void setPhone(String phone) {
+        this.phone.setValue(phone);
+    }
+
+    public LiveData<String> getPhone() {
+        return phone;
+    }
+
+    public void setAddress(String address) {
+        this.address.setValue(address);
+    }
+
+    public LiveData<String> getAddress() {
+        return address;
     }
     private MutableLiveData<List<Giay>> cartItems = new MutableLiveData<>();
     ProductRepository productRepository;
@@ -111,6 +128,7 @@ public class CartViewModel extends ViewModel {
             cartItems.setValue(currentItems);
         }
     }
+
 
 }
 

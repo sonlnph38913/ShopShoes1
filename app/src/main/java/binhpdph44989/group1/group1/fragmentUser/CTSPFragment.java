@@ -25,6 +25,7 @@ import binhpdph44989.group1.group1.CartViewModel;
 import binhpdph44989.group1.group1.MainActivityUser;
 import binhpdph44989.group1.group1.R;
 import binhpdph44989.group1.group1.adapterUser.GioHangAdapter;
+import binhpdph44989.group1.group1.dao.DonHangDAO;
 import binhpdph44989.group1.group1.database.DbHelper;
 import binhpdph44989.group1.group1.model.Giay;
 
@@ -35,6 +36,7 @@ public class CTSPFragment extends Fragment {
     public Giay giay;
 
     public GioHangAdapter adapter;
+    DonHangDAO donHangDAO;
     ArrayList<Giay> selectedItems = new ArrayList<>();
 
     public  CTSPFragment(){
@@ -64,12 +66,15 @@ public class CTSPFragment extends Fragment {
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (giay.getSoluongkho()>0) {
+                    if (cartViewModel != null) {
 
-                if (cartViewModel != null){
-
-                    cartViewModel.addToCart(giay);
+                        cartViewModel.addToCart(giay);
 //                    cartViewModel.updateStock(selectedItems);
-                    Toast.makeText(getContext(), "Đã Thêm Sản Phẩm Vào Giỏ Hàng", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Đã Thêm Sản Phẩm Vào Giỏ Hàng", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(getContext(), "Hết Hàng", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -83,21 +88,18 @@ public class CTSPFragment extends Fragment {
         ImageView imgGiayCt = view.findViewById(R.id.imgGiayCt);
         TextView txtSoluongSp = view.findViewById(R.id.txtSoluongSp);
 
-// Lấy ID của ảnh từ tệp drawable
+
         int imageResourceId = getResources().getIdentifier(giay.getHinhanh(), "drawable", getContext().getPackageName());
 
-// Kiểm tra xem ID ảnh có hợp lệ không
+
         if (imageResourceId != 0) {
-            // Sử dụng Picasso để hiển thị ảnh
             Picasso.get().load(imageResourceId).into(imgGiayCt);
         } else {
-            // Nếu không tìm thấy ảnh, bạn có thể hiển thị ảnh mặc định hoặc xử lý tùy thuộc vào yêu cầu của bạn
-            // Ví dụ:
             imgGiayCt.setImageResource(R.drawable.avatar1);
         }
-        txtName.setText(giay.getTengiay());
+        txtName.setText("Tên Giày: "+giay.getTengiay());
         txtGia.setText("Giá Bán:" + giay.getGiaban());
-        txtSize.setText("Size:" + giay.getSize());
+        txtSize.setText("Size:" + giay.getSize() + "$");
         txtSoluongSp.setText("Số Lượng Kho: " + giay.getSoluongkho());
 //        cartViewModel.updateStock(selectedItems);
     }

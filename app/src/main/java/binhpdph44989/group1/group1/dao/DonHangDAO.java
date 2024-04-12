@@ -43,4 +43,15 @@ public class DonHangDAO {
         // Đóng kết nối cơ sở dữ liệu
         db.close();
     }
+    public void updateProductQuantity(String maGiay, int quantity) {
+        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+        // Kiểm tra nếu số lượng mới sẽ là âm, thì gán số lượng mới là 0
+        int newQuantity = Math.max(quantity, 0);
+        // Thực hiện truy vấn để cập nhật số lượng sản phẩm trong kho
+        sqLiteDatabase.execSQL("UPDATE GIAY SET soluongkho = soluongkho - ? WHERE magiay = ?", new String[] {String.valueOf(newQuantity), maGiay});
+        // Đóng kết nối cơ sở dữ liệu
+        sqLiteDatabase.close();
+    }
+
+
 }

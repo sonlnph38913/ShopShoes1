@@ -10,8 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +25,7 @@ import java.util.List;
 import binhpdph44989.group1.group1.CartViewModel;
 import binhpdph44989.group1.group1.R;
 import binhpdph44989.group1.group1.adapterUser.GioHangAdapter;
-import binhpdph44989.group1.group1.model.DonHang;
+import binhpdph44989.group1.group1.dao.DonHangDAO;
 import binhpdph44989.group1.group1.model.Giay;
 
 
@@ -38,7 +36,6 @@ public class GioHangFragment extends Fragment {
     TextView txtTongTien;
     CheckBox cbAll;
     Button btnDatHang;
-    private AlertDialog alertDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,7 +46,7 @@ public class GioHangFragment extends Fragment {
         btnDatHang = view.findViewById(R.id.btnDatHang);
         cbAll = view.findViewById(R.id.cbAll);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new GioHangAdapter(new ArrayList<>(),getContext(),this);
+        adapter = new GioHangAdapter(new ArrayList<>(), getContext(), this);
         recyclerView.setAdapter(adapter);
         cbAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // Cập nhật trạng thái của tất cả sản phẩm trong danh sách
@@ -68,9 +65,9 @@ public class GioHangFragment extends Fragment {
             }
         });
 
-
         return view;
     }
+
     public void calculateTotalPrice() {
         int totalPrice = 0;
         for (Giay giay : adapter.getGiayList()) {
@@ -80,17 +77,19 @@ public class GioHangFragment extends Fragment {
         }
         txtTongTien.setText("Tổng tiền: " + totalPrice + "$");
     }
+
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
         cartViewModel.getCartItems().observe(getViewLifecycleOwner(), new Observer<List<Giay>>() {
             @Override
             public void onChanged(List<Giay> giayList) {
-                adapter.setList((ArrayList<Giay>) giayList);
+                adapter.setList(new ArrayList<>(giayList));
             }
         });
     }
+
     private void placeOrder() {
         // Kiểm tra xem có sản phẩm nào được chọn không
         boolean hasSelectedItem = false;
@@ -106,14 +105,6 @@ public class GioHangFragment extends Fragment {
             showSelectProductDialog();
             return;
         }
-        List<Giay> selectedItems = adapter.getSelectedItems();
-
-        // Tính tổng số lượng các sản phẩm đã chọn
-        int totalQuantity = 0;
-        for (Giay giay : selectedItems) {
-            totalQuantity += giay.getSoluong();
-        }
-
 
         // Tiếp tục thực hiện đặt hàng
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -122,8 +113,7 @@ public class GioHangFragment extends Fragment {
         builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
-                ShowDialogOrder();
+                showDialogOrder();
             }
         });
         builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -151,14 +141,15 @@ public class GioHangFragment extends Fragment {
         // Hiển thị dialog
         builder.create().show();
     }
-    private void ShowDialogOrder(){
+
+    private void showDialogOrder() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_order, null);
         builder.setView(dialogView);
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
-        EditText edtFullname = dialogView.findViewById(R.id.edtFullName);
+        EditText edtFullName = dialogView.findViewById(R.id.edtFullName);
         EditText edtPhone = dialogView.findViewById(R.id.edtPhone);
         EditText edtAddress = dialogView.findViewById(R.id.edtAddress);
         Button btnOrder = dialogView.findViewById(R.id.btnOrder);
@@ -167,53 +158,76 @@ public class GioHangFragment extends Fragment {
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            String name = edtFullname.getText().toString();
-            String phone = edtPhone.getText().toString();
-            String address = edtAddress.getText().toString();
-                if (!name.isEmpty()) {
+                String name = edtFullName.getText().toString();
+                String phone = edtPhone.getText().toString();
+                String address = edtAddress.getText().toString();
+                if (!name.isEmpty() | !phone.isEmpty() | !address.isEmpty()) {
                     // Tạo đơn hàng mới với thông tin người đặt
-                  cartViewModel.setHoTen(name);
-                   Order();
+                    cartViewModel.setHoTen(name);
+                    cartViewModel.setPhone(phone);
+                    cartViewModel.setAddress(address);
+                    order();
+                    alertDialog.dismiss();
                 } else {
                     // Nếu họ tên không hợp lệ, hiển thị thông báo
-                    Toast.makeText(getContext(), "Vui lòng nhập họ tên", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Vui lòng nhập Thông Tin", Toast.LENGTH_SHORT).show();
                 }
-
-            alertDialog.dismiss();
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            alertDialog.dismiss();
+                alertDialog.dismiss();
             }
-
         });
-
-
-
     }
-    private void Order(){
-//         Thực hiện hàm đặt hàng
-                ArrayList<Giay> selectedItems = new ArrayList<>();
-                for (Giay giay : adapter.getGiayList()) {
-                    if (giay.isSelected()) {
-                        selectedItems.add(giay);
-                    }
-                }
-                // Chuyển sang Fragment đơn hàng và đưa danh sách sản phẩm đã chọn vào Bundle
-                DonHangFragment donHangFragment = new DonHangFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("selectedItems", selectedItems);
-                donHangFragment.setArguments(bundle);
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.framelayout, donHangFragment)
-                        .addToBackStack(null)
-                        .commit();
-                Toast.makeText(getContext(), "Đặt Hàng Thành Công", Toast.LENGTH_SHORT).show();
+
+    private void order() {
+        // Lấy danh sách các sản phẩm đã chọn từ adapter
+        ArrayList<Giay> selectedItems = (ArrayList<Giay>) adapter.getSelectedItems();
+
+        // Kiểm tra số lượng kho của từng sản phẩm
+        boolean hasInsufficientStock = false;
+        for (Giay giay : selectedItems) {
+            if (giay.getSoluongkho() < giay.getSoluong()) {
+                hasInsufficientStock = true;
+                break;
+            }
+        }
+
+        // Nếu có ít nhất một sản phẩm có số lượng kho không đủ, hiển thị thông báo
+        if (hasInsufficientStock) {
+            Toast.makeText(getContext(), "Số lượng kho không đủ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Nếu số lượng kho đủ, thực hiện đặt hàng
+        DonHangFragment donHangFragment = new DonHangFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("selectedItems", selectedItems);
+        donHangFragment.setArguments(bundle);
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.framelayout, donHangFragment)
+                .addToBackStack(null)
+                .commit();
+        Toast.makeText(getContext(), "Đặt Hàng Thành Công", Toast.LENGTH_SHORT).show();
+
+        // Cập nhật số lượng kho trong cơ sở dữ liệu
+        DonHangDAO donHangDAO = new DonHangDAO(getContext());
+        for (Giay giay : selectedItems) {
+            int newStock = giay.getSoluongkho() - giay.getSoluong();
+            if (newStock >= 0) {
+                // Cập nhật số lượng kho trong cơ sở dữ liệu
+                donHangDAO.updateProductQuantity(String.valueOf(giay.getMagiay()), giay.getSoluong());
+                adapter.updateProductQuantity(giay, giay.getSoluongkho() - giay.getSoluong()  );
+            } else {
+                // Nếu số lượng kho âm, không thực hiện cập nhật và xóa sản phẩm khỏi giỏ hàng
+                Toast.makeText(getContext(), "Số lượng kho không đủ", Toast.LENGTH_SHORT).show();
+                adapter.removeGiay(giay); // Hàm removeGiay() là hàm bạn cần tạo trong GioHangAdapter để xóa sản phẩm khỏi giỏ hàng
+                adapter.notifyDataSetChanged(); // Cập nhật lại RecyclerView
+            }
+        }
     }
 
 
 }
-
-

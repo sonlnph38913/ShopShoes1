@@ -146,6 +146,10 @@ public class Giay implements Parcelable {
         isSelected = selected;
         return selected;
     }
+    public void decreaseQuantity(int quantity) {
+        this.soluongkho -= quantity;
+    }
+
 
 
 }

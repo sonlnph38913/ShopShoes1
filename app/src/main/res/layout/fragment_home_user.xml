@@ -35,6 +35,15 @@
                 android:layout_marginTop="5dp"
 
                 />
+            <ImageView
+
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/baseline_logout_24"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,7 +55,7 @@
                 android:src="@drawable/nike"/>
             <SearchView
                 android:id="@+id/svGiay"
-                android:layout_width="230dp"
+                android:layout_width="290dp"
                 android:layout_height="40dp"
                 android:background="@drawable/custom_search"
                 android:queryHint="Search"
@@ -54,19 +63,19 @@
                 android:layout_marginTop="10dp">
 
             </SearchView>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/favorite"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="5dp"/>
+<!--            <ImageView-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:background="@drawable/favorite"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:layout_marginLeft="5dp"/>-->
             <ImageView
                 android:id="@+id/GioHang"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/giohang"
                 android:layout_marginTop="15dp"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginLeft="10dp"/>
 
 
 
@@ -76,61 +85,7 @@
             android:layout_height="150dp"
             android:background="@drawable/banner"
             android:layout_marginTop="10dp"/>
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:gravity="center">-->
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="AirMax"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textSize="18dp"/>-->
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="|"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textSize="18dp"-->
-<!--                android:layout_marginLeft="5dp"/>-->
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Jordan"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textSize="18dp"-->
-<!--                android:layout_marginLeft="5dp"/>-->
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="|"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textSize="18dp"-->
-<!--                android:layout_marginLeft="5dp"/>-->
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="AF1"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textSize="18dp"-->
-<!--                android:layout_marginLeft="5dp"/>-->
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="|"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textSize="18dp"-->
-<!--                android:layout_marginLeft="5dp"/>-->
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="New"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textSize="18dp"-->
-<!--                android:layout_marginLeft="5dp"/>-->
 
-<!--        </LinearLayout>-->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/menuDanhMuc"
             android:layout_width="match_parent"

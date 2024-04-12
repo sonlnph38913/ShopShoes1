@@ -35,8 +35,6 @@ public class DonHangFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_don_hang, container, false);
         RecyclerView rcv_donhang = view.findViewById(R.id.rcvDonHang);
         rcv_donhang.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        rcv_donhang.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new DonHangAdapterUser(donHangItemList,getContext());
         rcv_donhang.setAdapter(adapter);
 
@@ -51,15 +49,11 @@ public class DonHangFragment extends Fragment {
         cartViewModel.getCartItems().observe(getViewLifecycleOwner(), new Observer<List<Giay>>() {
             @Override
             public void onChanged(List<Giay> giayList) {
-                // Clear danh sách DonHangItem trước khi thêm mới
-//                donHangItemList.clear();
-                // Tạo các DonHangItem mới từ danh sách Giay
                 for (Giay giay : giayList) {
                     DonHang donHang = new DonHang(); // Thay thế bằng cách lấy dữ liệu từ ViewModel hoặc database của bạn
                     DonHangItems donHangItem = new DonHangItems(giay, donHang);
                     donHangItemList.add(donHangItem);
                 }
-                // Cập nhật RecyclerView
                 adapter.notifyDataSetChanged();
             }
         });
@@ -67,8 +61,22 @@ public class DonHangFragment extends Fragment {
         cartViewModel.getHoTen().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String hoTen) {
-                // Cập nhật RecyclerView trong Fragment đơn hàng khi có thay đổi về họ tên
                 adapter.setHoTen(hoTen);
+
+            }
+        });
+        cartViewModel.getPhone().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String phone) {
+                adapter.setPhone(phone);
+
+            }
+        });
+        cartViewModel.getAddress().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String address) {
+                adapter.setAddress(address);
+
             }
         });
     }
